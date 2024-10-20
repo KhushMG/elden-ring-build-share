@@ -1,3 +1,4 @@
+
 import {
   ClerkProvider,
   SignInButton,
@@ -22,7 +23,7 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "Elden Ring Buils Share",
+  title: "Elden Ring Build Share",
   description: "Build Share",
 };
 
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
       appearance={{
         signIn: { baseTheme: neobrutalism },
         signUp: { baseTheme: neobrutalism },
+        
       }}
     >
       <html lang="en">
