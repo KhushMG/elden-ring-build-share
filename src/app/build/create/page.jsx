@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { redirect } from 'next/navigation'
 import { Combobox } from '@/components/ui/combobox'
 import { SingleSelectCombobox } from '@/components/ui/single-select_combobox'
+import BuildCreation from '@/components/ui/BuildCreation'
 
 const availableTags = ['Strength, Dexterity, Intelligence, Faith, Arcane, Incantation, Sorcery, Magic, Fire, Bleed, Holy, Lightning, Frostbite']
 
@@ -36,14 +37,11 @@ const CreateBuildPage = () => {
     if (error) console.error(error.message);
   }
 
-
   return (
     <div className="flex flex-wrap justify-center items-center min-h-screen space-x-4">
-      <Combobox />
-      <SingleSelectCombobox equipmentType={"Helmet"} />
-      <SingleSelectCombobox equipmentType={"Chest Armor"} />
-      <SingleSelectCombobox equipmentType={"Gauntlets"} />
-      <SingleSelectCombobox equipmentType={"Legs"} />
+      <div>
+        <BuildCreation/>
+      </div>
     </div>
   );
 }
