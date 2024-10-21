@@ -56,7 +56,6 @@ export function SingleSelectCombobox( { equipmentType } ) {
           <Command>
             <CommandInput
               placeholder={`Search ${equipmentType}...`}
-              className="h-9"
             />
             <CommandList className="max-h-[200px]">
               <CommandEmpty>No weapon found.</CommandEmpty>

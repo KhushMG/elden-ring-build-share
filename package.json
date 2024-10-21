@@ -13,6 +13,7 @@
     "@clerk/themes": "^2.1.36",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-popover": "^1.1.2",
+    "@radix-ui/react-scroll-area": "^1.2.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@supabase/supabase-js": "^2.45.4",
     "class-variance-authority": "^0.7.0",

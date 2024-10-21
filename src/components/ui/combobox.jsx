@@ -48,7 +48,7 @@ export function Combobox() {
   };
 
   return (
-    <div className="min-h-[5rem] max-h-[5rem] over-y-auto space-y-4 space-x-4">
+    <div className="min-h-[5rem] max-h-[5rem] over-y-auto">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -66,7 +66,7 @@ export function Combobox() {
         <PopoverContent className="w-[200px] p-0">
           <Command>
             <CommandInput placeholder="Search weapons..." />
-            <CommandList>
+            <CommandList className="max-h-[200px]">
               <CommandEmpty>No weapons found.</CommandEmpty>
               <CommandGroup>
                 {availableWeapons.map((weapon) => (
@@ -76,7 +76,7 @@ export function Combobox() {
                   >
                     <Check
                       className={cn(
-                        "mr-2 h-4 w-4",
+                        "ml-auto h-4 w-4",
                         selectedWeapons.includes(weapon)
                           ? "opacity-100"
                           : "opacity-0"

@@ -38,7 +38,7 @@ const CreateBuildPage = () => {
 
 
   return (
-    <div className="flex justify-center items-center min-h-screen space-x-[2rem]">
+    <div className="flex flex-wrap justify-center items-center min-h-screen space-x-4">
       <Combobox />
       <SingleSelectCombobox equipmentType={"Helmet"} />
       <SingleSelectCombobox equipmentType={"Chest Armor"} />
