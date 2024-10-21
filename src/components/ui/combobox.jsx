@@ -48,7 +48,7 @@ export function Combobox() {
   };
 
   return (
-    <div className="space-y-4 space-x-4">
+    <div className="min-h-[5rem] max-h-[5rem] over-y-auto space-y-4 space-x-4">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button

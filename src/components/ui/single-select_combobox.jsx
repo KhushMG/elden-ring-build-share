@@ -37,7 +37,7 @@ export function SingleSelectCombobox( { equipmentType } ) {
   );
 
   return (
-    <div>
+    <div className="min-h-[5rem] max-h-[5rem] over-y-auto">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -58,7 +58,7 @@ export function SingleSelectCombobox( { equipmentType } ) {
               placeholder={`Search ${equipmentType}...`}
               className="h-9"
             />
-            <CommandList className="max-h-[200px] overflow-y-auto">
+            <CommandList className="max-h-[200px]">
               <CommandEmpty>No weapon found.</CommandEmpty>
               <CommandGroup>
                 {weapons.map((weapon) => (
