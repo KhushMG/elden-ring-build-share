@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { supabase } from "@/lib/supabase";
-import { useUser } from "@clerk/nextjs";
+import { useUser, isLoaded, isSignedIn } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 /* 
 Displays a list of all builds associated with the user,
@@ -44,7 +44,11 @@ const UserProfilePage = ({ params }) => {
           </li>;
         })}
       </ul>
-
+      <div>
+        <button>
+          <a href="/build/create"> Create a new Build</a>
+           </button>
+      </div>
       {/* Copy profile link */}
       <button
         onClick={() => navigator.clipboard.writeText(window.location.href)}
