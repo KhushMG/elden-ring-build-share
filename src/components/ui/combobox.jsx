@@ -19,6 +19,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
+import { supabase } from "@/lib/supabase";
+
 const allWeapons = [
   "Greatspear",
   "Death Knight Axe",
@@ -27,11 +29,29 @@ const allWeapons = [
   "Dagger",
 ];
 
-
-
 export function Combobox() {
   const [open, setOpen] = React.useState(false);
   const [selectedWeapons, setSelectedWeapons] = React.useState([]);
+  const [weapons, setWeapons] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchWeapons = async () => {
+      const { data, error } = await supabase
+        .from("weapons")
+        .select("name");
+
+
+      if (error) {
+        console.error(error);
+      } else {
+        const weaponNames = data.map((weapon) => weapon.name); // Extract only the names
+        setWeapons(weaponNames);
+        console.log(weaponNames);
+      }
+    };
+
+    fetchWeapons();
+  }, []);
 
   const availableWeapons = allWeapons.filter(
     (weapon) => !selectedWeapons.includes(weapon)
@@ -67,7 +87,7 @@ export function Combobox() {
             <CommandList className="max-h-[200px]">
               <CommandEmpty>No weapons found.</CommandEmpty>
               <CommandGroup>
-                {availableWeapons.map((weapon) => (
+                {weapons.map((weapon) => (
                   <CommandItem
                     key={weapon}
                     onSelect={() => toggleWeapon(weapon)}
