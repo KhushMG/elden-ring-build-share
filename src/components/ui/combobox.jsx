@@ -21,30 +21,17 @@ import {
 
 import { supabase } from "@/lib/supabase";
 
-const allWeapons = [
-  "Greatspear",
-  "Death Knight Axe",
-  "Claymore",
-  "Longsword",
-  "Dagger",
-];
-
-export function Combobox() {
+export function Combobox({ onWeaponsChange, weapons }) {
   const [open, setOpen] = React.useState(false);
   const [selectedWeapons, setSelectedWeapons] = React.useState([]);
-  const [weapons, setWeapons] = React.useState([]);
 
   React.useEffect(() => {
     const fetchWeapons = async () => {
-      const { data, error } = await supabase
-        .from("weapons")
-        .select("name");
-
-
+      const { data, error } = await supabase.from("weapons").select("name");
       if (error) {
         console.error(error);
       } else {
-        const weaponNames = data.map((weapon) => weapon.name); // Extract only the names
+        const weaponNames = data.map((weapon) => weapon.name); // Extract only the names of the weapons
         setWeapons(weaponNames);
         console.log(weaponNames);
       }
@@ -53,16 +40,17 @@ export function Combobox() {
     fetchWeapons();
   }, []);
 
-  const availableWeapons = allWeapons.filter(
-    (weapon) => !selectedWeapons.includes(weapon)
-  );
-
   const toggleWeapon = (weapon) => {
-    setSelectedWeapons((prev) =>
-      prev.includes(weapon)
+    setSelectedWeapons((prev) => {
+      const newSelectedWeapons = prev.includes(weapon)
         ? prev.filter((w) => w !== weapon)
-        : [...prev, weapon]
-    );
+        : [...prev, weapon];
+
+      // Pass the updated weapons to the parent component
+      onWeaponsChange(newSelectedWeapons);
+
+      return newSelectedWeapons;
+    });
   };
 
   return (

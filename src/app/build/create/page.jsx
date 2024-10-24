@@ -1,46 +1,65 @@
-'use client'
+
 import React from 'react'
-import { supabase } from '@/lib/supabase'
-import { useUser} from '@clerk/nextjs'
-import { useState } from 'react'
-import { redirect } from 'next/navigation'
-import { Combobox } from '@/components/ui/combobox'
-import { SingleSelectCombobox } from '@/components/ui/single-select_combobox'
 import BuildCreation from '@/components/ui/BuildCreation'
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
-const availableTags = ['Strength, Dexterity, Intelligence, Faith, Arcane, Incantation, Sorcery, Magic, Fire, Bleed, Holy, Lightning, Frostbite']
 
-const CreateBuildPage = () => {
-  const { isSignedIn, user, isLoaded } = useUser()
-  const [selectedTags, setSelectedTags] = useState([])
-  const [buildName, setBuildName] = useState('')
+const CreateBuildPage = async () => {
+  
+  const sb = createServerComponentClient();
 
-  if (isLoaded && !user) { 
-    redirect('/sign-in')
-  }
+ const [
+   { data: weapons, error: weaponsError },
+   { data: helmets, error: helmetsError },
+   { data: chests, error: chestsError },
+   { data: gauntlets, error: gauntletsError },
+   { data: legs, error: legsError },
+   { data: talismans, error: talismansError },
+   { data: greatRunes, error: greatRunesError },
+ ] = await Promise.all([
+   supabase.from("weapons").select("name"),
+   supabase.from("helmets").select("name"),
+   supabase.from("chest_armor").select("name"),
+   supabase.from("gauntlets").select("name"),
+   supabase.from("legs").select("name"),
+   supabase.from("talismans").select("name"),
+   supabase.from("great_runes").select("name"),
+ ]);
 
-  const toggleTag = (tag) => { 
-    setSelectedTags((prevTags) => {
-      prevTags.includes(tag) 
-      ? prevTags.filter((t) => t !== tag)
-      : [...prevTags, tag]
-    });
-  };
-
-  const handleSubmit = async (e) => { 
-    e.preventDefault();
-    const {data, error} = await supabase.from('builds'.insert({
-      clerk_user_id: user.id,
-      build_name: buildName,
-      tags: selectedTags,
-    }));
-    if (error) console.error(error.message);
-  }
+ // Handle errors if any exist
+ if (
+   weaponsError ||
+   helmetsError ||
+   chestsError ||
+   gauntletsError ||
+   legsError ||
+   talismansError ||
+   greatRunesError
+ ) {
+   console.error({
+     weaponsError,
+     helmetsError,
+     chestsError,
+     gauntletsError,
+     legsError,
+     talismansError,
+     greatRunesError,
+   });
+   return <div>Error fetching data</div>;
+ }
 
   return (
     <div className="flex flex-wrap justify-center items-center min-h-screen space-x-4">
       <div>
-        <BuildCreation/>
+        <BuildCreation
+          weapons={weapons}
+          helmets={helmets}
+          chests={chests}
+          gauntlets={gauntlets}
+          legs={legs}
+          talismans={talismans}
+          greatRunes={greatRunes}
+        />
       </div>
     </div>
   );

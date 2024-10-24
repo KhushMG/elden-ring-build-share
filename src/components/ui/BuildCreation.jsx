@@ -1,9 +1,34 @@
+"use client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Combobox } from '@/components/ui/combobox'
-import { SingleSelectCombobox } from '@/components/ui/single-select_combobox'
+import { Combobox } from "@/components/ui/combobox";
+import { SingleSelectCombobox } from "@/components/ui/single-select_combobox";
 import { TagsCombobox } from "./TagsCombobox";
+import { useState } from "react";
+import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
-export default function BuildCreation() {
+export default function BuildCreation({ weapons, helmets, chests, gauntlets, legs}) {
+  const { isSignedIn, user, isLoaded } = useUser();
+  if (isLoaded && !user) {
+    redirect("/sign-in");
+  }
+
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedWeapons, setSelectedWeapons] = useState([]);
+  const [selectedGreatRune, setSelectedGreatRune] = useState("");
+  const [selectedTalismans, setSelectedTalismans] = useState([]);
+  const [selectedHelmet, setSelectedHelmet] = useState("");
+  const [selectedChest, setSelectedChest] = useState("");
+  const [selectedGauntlets, setSelectedGauntlets] = useState("");
+  const [selectedLegs, setSelectedLegs] = useState("");
+
+  const handleTagsChange = (tags) => {
+    setSelectedTags(tags);
+  };
+
+  const handleWeaponsChange = (weapons) => {
+    setSelectedWeapons(weapons);
+  };
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Build Name</h1>
@@ -14,7 +39,7 @@ export default function BuildCreation() {
           </CardHeader>
           <CardContent>
             <div className="bg-gray-100 h-48 rounded-md overflow-y-auto">
-              <TagsCombobox/>
+              <TagsCombobox onTagsChange={handleTagsChange} />
             </div>
           </CardContent>
         </Card>
@@ -40,7 +65,10 @@ export default function BuildCreation() {
           </CardHeader>
           <CardContent>
             <div className="bg-gray-100 h-48 rounded-md overflow-y-auto">
-              <Combobox />
+              <Combobox
+                onWeaponsChange={handleWeaponsChange}
+                weapons={weapons}
+              />
             </div>
           </CardContent>
         </Card>

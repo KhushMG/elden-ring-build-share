@@ -43,20 +43,24 @@ const allTags = [
   "Frostbite",
 ];
 
-export function TagsCombobox() {
+// Inside TagsCombobox component
+export function TagsCombobox({ onTagsChange }) {
   const [open, setOpen] = React.useState(false);
-  const [selectedTags, setselectedTags] = React.useState([]);
+  const [selectedTags, setSelectedTags] = React.useState([]);
 
   const availableTags = allTags.filter(
     (tag) => !selectedTags.includes(tag)
   );
 
-  const toggleTags = (weapon) => {
-    setselectedTags((prev) =>
-      prev.includes(weapon)
-        ? prev.filter((w) => w !== weapon)
-        : [...prev, weapon]
-    );
+  const toggleTags = (tag) => {
+    const newSelectedTags = selectedTags.includes(tag)
+      ? selectedTags.filter((w) => w !== tag)
+      : [...selectedTags, tag];
+
+    setSelectedTags(newSelectedTags);
+
+    // Pass the updated tags to the parent component
+    onTagsChange(newSelectedTags);
   };
 
   return (
@@ -79,7 +83,7 @@ export function TagsCombobox() {
           <Command>
             <CommandInput placeholder="Search tags..." />
             <CommandList className="max-h-[200px]">
-              <CommandEmpty>No weapons found.</CommandEmpty>
+              <CommandEmpty>No tags found.</CommandEmpty>
               <CommandGroup>
                 {availableTags.map((tag) => (
                   <CommandItem
@@ -129,3 +133,4 @@ export function TagsCombobox() {
     </div>
   );
 }
+
