@@ -25,21 +25,6 @@ export function Combobox({ onWeaponsChange, weapons }) {
   const [open, setOpen] = React.useState(false);
   const [selectedWeapons, setSelectedWeapons] = React.useState([]);
 
-  React.useEffect(() => {
-    const fetchWeapons = async () => {
-      const { data, error } = await supabase.from("weapons").select("name");
-      if (error) {
-        console.error(error);
-      } else {
-        const weaponNames = data.map((weapon) => weapon.name); // Extract only the names of the weapons
-        setWeapons(weaponNames);
-        console.log(weaponNames);
-      }
-    };
-
-    fetchWeapons();
-  }, []);
-
   const toggleWeapon = (weapon) => {
     setSelectedWeapons((prev) => {
       const newSelectedWeapons = prev.includes(weapon)

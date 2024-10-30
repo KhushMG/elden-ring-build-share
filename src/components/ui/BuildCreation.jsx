@@ -4,10 +4,21 @@ import { Combobox } from "@/components/ui/combobox";
 import { SingleSelectCombobox } from "@/components/ui/single-select_combobox";
 import { TagsCombobox } from "./TagsCombobox";
 import { useState } from "react";
-import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
-export default function BuildCreation({ weapons, helmets, chests, gauntlets, legs}) {
-  const { isSignedIn, user, isLoaded } = useUser();
+import { useUser } from "@clerk/nextjs";
+
+export default function BuildCreation({ weapons, helmets, chests, gauntlets, legs, talismans}) {
+
+  // supabase query returns array of objects with "name" field
+  // This is just getting the list of strings.
+  weapons = weapons.map((weapon) => weapon.name);
+  talismans = talismans.map((talisman) => talisman.name);
+  helmets = helmets.map((helmet) => helmet.name);
+  chests = chests.map((chest) => chest.name);
+  gauntlets = gauntlets.map((gauntlet) => gauntlet.name);
+  legs = legs.map((leg) => leg.name);
+
+  const { user, isLoaded } = useUser();
   if (isLoaded && !user) {
     redirect("/sign-in");
   }
@@ -29,6 +40,10 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
     setSelectedWeapons(weapons);
   };
 
+  const handleTalismanChange = (talismans) => {
+    setSelectedWeapons(talismans);
+  };
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Build Name</h1>
@@ -48,7 +63,11 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
             <CardTitle>Select Talismans</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <SingleSelectCombobox equipmentType={"Talismans"} />
+            <SingleSelectCombobox 
+              onSelectionChange={handleTalismanChange}
+              equipmentType={"Talismans"} 
+              equipment={talismans}
+            />
           </CardContent>
         </Card>
         <Card>

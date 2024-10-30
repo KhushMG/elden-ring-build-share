@@ -27,12 +27,14 @@ const weapons = [
   { value: "dagger", label: "Dagger" },
 ];
 
-export function SingleSelectCombobox( { equipmentType } ) {
+export function SingleSelectCombobox( { onSelectionChange, equipmentType, equipment = [] } ) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 
-  const selectedWeapon = React.useMemo(
-    () => weapons.find((weapon) => weapon.value === value),
+  const availableItems = equipment.filter(val => val !== value);
+
+  const selectedItem = React.useMemo(
+    () => equipment?.find((weapon) => weapon.value === value) || null,
     [value]
   );
 
@@ -46,34 +48,30 @@ export function SingleSelectCombobox( { equipmentType } ) {
             aria-expanded={open}
             className="w-[200px] justify-between"
           >
-            {selectedWeapon
-              ? selectedWeapon.label
-              : `Select ${equipmentType}...`}
+            {selectedItem ? selectedItem.label : `Select ${equipmentType}...`}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[200px] p-0">
           <Command>
-            <CommandInput
-              placeholder={`Search ${equipmentType}...`}
-            />
+            <CommandInput placeholder={`Search ${equipmentType}(s)...`} />
             <CommandList className="max-h-[200px]">
               <CommandEmpty>No weapon found.</CommandEmpty>
               <CommandGroup>
-                {weapons.map((weapon) => (
+                {availableItems?.map((item) => (
                   <CommandItem
-                    key={weapon.value}
-                    value={weapon.value}
+                    key={item}
+                    value={item}
                     onSelect={(currentValue) => {
                       setValue(currentValue === value ? "" : currentValue);
                       setOpen(false);
                     }}
                   >
-                    {weapon.label}
+                    {item}
                     <Check
                       className={cn(
                         "ml-auto h-4 w-4",
-                        value === weapon.value ? "opacity-100" : "opacity-0"
+                        value === item ? "opacity-100" : "opacity-0"
                       )}
                     />
                   </CommandItem>
@@ -86,7 +84,7 @@ export function SingleSelectCombobox( { equipmentType } ) {
 
       {value && (
         <div className="mt-4">
-          <h3 className="text-lg font-semibold mb-2">Selected Weapons:</h3>
+          <h3 className="text-lg font-semibold mb-2">{`Selected ${equipmentType}:`}</h3>
           <ul className="space-y-2">
             <li
               key={value}
