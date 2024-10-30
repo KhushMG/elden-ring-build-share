@@ -1,4 +1,5 @@
 "use client"
+import { useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Combobox } from "@/components/ui/combobox";
 import { SingleSelectCombobox } from "@/components/ui/single-select_combobox";
@@ -48,7 +49,6 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
 
   const handleGreatRuneChange = (greatRune) => {
     setSelectedGreatRune(greatRune);
-    console.log(selectedGreatRune)
   };
 
   const handleHelmetChange = (helmet) => {
@@ -60,12 +60,36 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
   };
 
   const handleGauntletChange = (gauntlet) => {
-    setSelectedChest(gauntlet);
+    setSelectedGauntlets(gauntlet);
   };
 
   const handleLegsChange = (leg) => {
     setSelectedLegs(leg);
   };
+
+  {/* Test useEffect for Watching All Selections */}
+  useEffect(() => {
+    console.log("State changed:", {
+      selectedTags,
+      selectedWeapons,
+      selectedTalismans,
+      selectedGreatRune,
+      selectedHelmet,
+      selectedChest,
+      selectedGauntlets,
+      selectedLegs,
+    });
+  }, [
+    selectedTags,
+    selectedWeapons,
+    selectedTalismans,
+    selectedGreatRune,
+    selectedHelmet,
+    selectedChest,
+    selectedGauntlets,
+    selectedLegs,
+  ]);
+
 
 
 

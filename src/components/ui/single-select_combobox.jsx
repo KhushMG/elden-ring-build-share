@@ -31,6 +31,15 @@ export function SingleSelectCombobox( { onSelectionChange, equipmentType, equipm
     [equipment, value]
   );
 
+ const toggleSelection = (item) => {
+   const newValue = item === value ? "" : item; 
+   setValue(newValue);
+ };
+
+  React.useEffect(() => {
+    onSelectionChange(value);
+  }, [value, onSelectionChange]);
+
   return (
     <div className="min-h-[5rem] max-h-[5rem] over-y-auto">
       <Popover open={open} onOpenChange={setOpen}>
@@ -55,8 +64,8 @@ export function SingleSelectCombobox( { onSelectionChange, equipmentType, equipm
                   <CommandItem
                     key={item}
                     value={item}
-                    onSelect={(currentValue) => {
-                      setValue(currentValue === value ? "" : currentValue);
+                    onSelect={() => {
+                      toggleSelection(item);
                       setOpen(false);
                     }}
                   >
@@ -87,7 +96,10 @@ export function SingleSelectCombobox( { onSelectionChange, equipmentType, equipm
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => setValue(value === value ? "" : currentValue)}
+                onClick={() => {
+                  setValue("");
+                  onSelectionChange("");
+                }}
                 className="hover:bg-destructive hover:text-destructive-foreground"
               >
                 <X className="h-4 w-4" />
