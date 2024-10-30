@@ -7,7 +7,7 @@ import { useState } from "react";
 
 import { useUser } from "@clerk/nextjs";
 
-export default function BuildCreation({ weapons, helmets, chests, gauntlets, legs, talismans}) {
+export default function BuildCreation({ weapons, helmets, chests, gauntlets, legs, talismans, greatRunes}) {
 
   // supabase query returns array of objects with "name" field
   // This is just getting the list of strings.
@@ -17,6 +17,8 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
   chests = chests.map((chest) => chest.name);
   gauntlets = gauntlets.map((gauntlet) => gauntlet.name);
   legs = legs.map((leg) => leg.name);
+  greatRunes = greatRunes.map((greatRune) => greatRune.name);
+  
 
   const { user, isLoaded } = useUser();
   if (isLoaded && !user) {
@@ -41,8 +43,31 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
   };
 
   const handleTalismanChange = (talismans) => {
-    setSelectedWeapons(talismans);
+    setSelectedTalismans(talismans);
   };
+
+  const handleGreatRuneChange = (greatRune) => {
+    setSelectedGreatRune(greatRune);
+    console.log(selectedGreatRune)
+  };
+
+  const handleHelmetChange = (helmet) => {
+    setSelectedHelmet(helmet);
+  };
+
+  const handleChestChange = (chest) => {
+    setSelectedChest(chest);
+  };
+
+  const handleGauntletChange = (gauntlet) => {
+    setSelectedChest(gauntlet);
+  };
+
+  const handleLegsChange = (leg) => {
+    setSelectedLegs(leg);
+  };
+
+
 
   return (
     <div className="container mx-auto p-4">
@@ -63,11 +88,13 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
             <CardTitle>Select Talismans</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <SingleSelectCombobox 
-              onSelectionChange={handleTalismanChange}
-              equipmentType={"Talismans"} 
-              equipment={talismans}
-            />
+            <div className="bg-gray-100 h-48 rounded-md overflow-y-auto">
+              <Combobox
+                onWeaponsChange={handleTalismanChange}
+                equipmentType={"Talismans"}
+                weapons={talismans}
+              />
+            </div>
           </CardContent>
         </Card>
         <Card>
@@ -75,7 +102,11 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
             <CardTitle>Select Great Rune</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <SingleSelectCombobox equipmentType={"Great Rune"} />
+            <SingleSelectCombobox
+              onSelectionChange={handleGreatRuneChange}
+              equipmentType={"Great Rune"}
+              equipment={greatRunes}
+            />
           </CardContent>
         </Card>
         <Card>
@@ -87,6 +118,7 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
               <Combobox
                 onWeaponsChange={handleWeaponsChange}
                 weapons={weapons}
+                equipmentType={"Weapons"}
               />
             </div>
           </CardContent>
@@ -101,25 +133,41 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
               <div>
                 <h3 className="font-semibold mb-1">Select helmet</h3>
                 <div className="bg-gray-100 h-24 rounded-md">
-                  <SingleSelectCombobox equipmentType={"Helmet"} />
+                  <SingleSelectCombobox
+                    onSelectionChange={handleHelmetChange}
+                    equipmentType={"Helmet"}
+                    equipment={helmets}
+                  />
                 </div>
               </div>
               <div>
                 <h3 className="font-semibold mb-1">Select chestpiece</h3>
                 <div className="bg-gray-100 h-24 rounded-md">
-                  <SingleSelectCombobox equipmentType={"Chest Armor"} />
+                  <SingleSelectCombobox
+                    onSelectionChange={handleChestChange}
+                    equipmentType={"Chest Armor"}
+                    equipment={chests}
+                  />
                 </div>
               </div>
               <div>
                 <h3 className="font-semibold mb-1">Select gauntlets</h3>
                 <div className="bg-gray-100 h-24 rounded-md">
-                  <SingleSelectCombobox equipmentType={"Gauntlets"} />
+                  <SingleSelectCombobox
+                    equipmentType={"Gauntlets"}
+                    equipment={gauntlets}
+                    onSelectionChange={handleGauntletChange}
+                  />
                 </div>
               </div>
               <div>
                 <h3 className="font-semibold mb-1">Select leg armor</h3>
                 <div className="bg-gray-100 h-24 rounded-md">
-                  <SingleSelectCombobox equipmentType={"Legs"} />
+                  <SingleSelectCombobox
+                    equipment={legs}
+                    onSelectionChange={handleLegsChange}
+                    equipmentType={"Legs"}
+                  />
                 </div>
               </div>
             </div>

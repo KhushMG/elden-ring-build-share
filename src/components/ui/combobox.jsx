@@ -19,9 +19,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-import { supabase } from "@/lib/supabase";
 
-export function Combobox({ onWeaponsChange, weapons }) {
+export function Combobox({ onWeaponsChange, equipmentType, weapons }) {
   const [open, setOpen] = React.useState(false);
   const [selectedWeapons, setSelectedWeapons] = React.useState([]);
 
@@ -50,7 +49,7 @@ export function Combobox({ onWeaponsChange, weapons }) {
           >
             {selectedWeapons.length > 0
               ? `${selectedWeapons.length} weapon(s) selected`
-              : "Select weapon(s)..."}
+              : `Select ${equipmentType}...`}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
@@ -61,7 +60,8 @@ export function Combobox({ onWeaponsChange, weapons }) {
               <CommandEmpty>No weapons found.</CommandEmpty>
               <CommandGroup>
                 {weapons.map((weapon) => (
-                  <CommandItem
+                  <div key={weapon} className=""> 
+                    <CommandItem
                     key={weapon}
                     onSelect={() => toggleWeapon(weapon)}
                   >
@@ -72,9 +72,12 @@ export function Combobox({ onWeaponsChange, weapons }) {
                           ? "opacity-100"
                           : "opacity-0"
                       )}
+                      color="green"
                     />
-                    {weapon}
+                    {weapon.toUpperCase()}
                   </CommandItem>
+                  </div>
+                  
                 ))}
               </CommandGroup>
             </CommandList>
@@ -95,7 +98,9 @@ export function Combobox({ onWeaponsChange, weapons }) {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => toggleWeapon(weapon)}
+                  onClick={() => {
+                    toggleWeapon(weapon);
+                  }}
                   className="hover:bg-destructive hover:text-destructive-foreground"
                 >
                   <X className="h-4 w-4" />

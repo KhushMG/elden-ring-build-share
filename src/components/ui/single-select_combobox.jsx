@@ -19,13 +19,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const weapons = [
-  { value: "greatspear", label: "Greatspear" },
-  { value: "death-knight-axe", label: "Death Knight Axe" },
-  { value: "claymore", label: "Claymore" },
-  { value: "longsword", label: "Longsword" },
-  { value: "dagger", label: "Dagger" },
-];
 
 export function SingleSelectCombobox( { onSelectionChange, equipmentType, equipment = [] } ) {
   const [open, setOpen] = React.useState(false);
@@ -35,7 +28,7 @@ export function SingleSelectCombobox( { onSelectionChange, equipmentType, equipm
 
   const selectedItem = React.useMemo(
     () => equipment?.find((weapon) => weapon.value === value) || null,
-    [value]
+    [equipment, value]
   );
 
   return (
@@ -56,7 +49,7 @@ export function SingleSelectCombobox( { onSelectionChange, equipmentType, equipm
           <Command>
             <CommandInput placeholder={`Search ${equipmentType}(s)...`} />
             <CommandList className="max-h-[200px]">
-              <CommandEmpty>No weapon found.</CommandEmpty>
+              <CommandEmpty>{`No ${equipmentType}(s) found.`}</CommandEmpty>
               <CommandGroup>
                 {availableItems?.map((item) => (
                   <CommandItem
@@ -67,7 +60,7 @@ export function SingleSelectCombobox( { onSelectionChange, equipmentType, equipm
                       setOpen(false);
                     }}
                   >
-                    {item}
+                    {item.toUpperCase()}
                     <Check
                       className={cn(
                         "ml-auto h-4 w-4",
