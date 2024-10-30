@@ -3,10 +3,9 @@ import React from 'react'
 import BuildCreation from '@/components/ui/BuildCreation'
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
+import { supabase } from '@/lib/supabase';
 
 const CreateBuildPage = async () => {
-  
-  const sb = createServerComponentClient();
 
  const [
    { data: weapons, error: weaponsError },
