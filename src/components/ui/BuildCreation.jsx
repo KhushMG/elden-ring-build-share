@@ -8,7 +8,6 @@ import { useState } from "react";
 
 import { useUser } from "@clerk/nextjs";
 
-import { Button } from "@/components/ui/button";
 import { BuildDialog } from './BuildDialog';
 
 export default function BuildCreation({ weapons, helmets, chests, gauntlets, legs, talismans, greatRunes}) {
@@ -71,6 +70,10 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
     setSelectedLegs(leg);
   };
 
+  const handleBuildNameChange = (buildName) => { 
+    setBuildName(buildName)
+  }
+
   {/* Test useEffect for Watching All Selections */}
   useEffect(() => {
     console.log("State changed:", {
@@ -82,6 +85,7 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
       selectedChest,
       selectedGauntlets,
       selectedLegs,
+      buildName,
     });
   }, [
     selectedTags,
@@ -92,13 +96,14 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
     selectedChest,
     selectedGauntlets,
     selectedLegs,
+    buildName
   ]);
 
   return (
     <div className="container mx-auto p-4">
       <div className="flex space-x-4 mb-4">
-        <h1 className="text-2xl font-bold">Build Name</h1>
-        <BuildDialog />
+        <h1 className="text-2xl font-bold">{buildName ? `${buildName}` : "Build Name"}</h1>
+        <BuildDialog onBuildNameChange={handleBuildNameChange}/>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
