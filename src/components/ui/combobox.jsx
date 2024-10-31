@@ -41,7 +41,7 @@ export function Combobox({ onWeaponsChange, equipmentType, weapons }) {
   };
 
   return (
-    <div className="min-h-[5rem] max-h-[5rem] ">
+    <div className="min-h-[5rem] max-h-[5rem] w-[300px] ">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -51,12 +51,12 @@ export function Combobox({ onWeaponsChange, equipmentType, weapons }) {
             className="w-[300px] justify-between "
           >
             {selectedWeapons.length > 0
-              ? `${selectedWeapons.length} weapon(s) selected`
+              ? `${selectedWeapons.length} + ${equipmentType}(s) selected`
               : `Select ${equipmentType}...`}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0">
+        <PopoverContent className="w-[300px] p-0">
           <Command>
             <CommandInput placeholder="Search weapons..." />
             <CommandList className="max-h-[200px]">

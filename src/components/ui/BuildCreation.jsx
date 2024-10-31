@@ -101,13 +101,13 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
         <BuildDialog />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="border-gray-400 h-[300px] flex flex-col ">
           <CardHeader>
             <CardTitle>Select Build Tags</CardTitle>
           </CardHeader>
           <CardContent className="flex-grow overflow-hidden ">
-            <div className="bg-gray-100 h-full rounded-md overflow-y-auto overflow-x-hidden ">
+            <div className="bg-gray-100 h-full rounded-md overflow-y-auto overflow-x-hidden w-[400px]">
               <TagsCombobox onTagsChange={handleTagsChange} />
             </div>
           </CardContent>
@@ -121,7 +121,7 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
             <div className="bg-gray-100 h-full rounded-md overflow-y-auto overflow-x-hidden">
               <Combobox
                 onWeaponsChange={handleTalismanChange}
-                equipmentType={"Talismans"}
+                equipmentType={"Talisman"}
                 weapons={talismans}
               />
             </div>

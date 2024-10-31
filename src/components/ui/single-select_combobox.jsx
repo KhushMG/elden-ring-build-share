@@ -48,13 +48,13 @@ export function SingleSelectCombobox( { onSelectionChange, equipmentType, equipm
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="sm:w-[300px] gap-x-4"
+            className="sm:w-[250px] gap-x-4"
           >
             {selectedItem ? selectedItem.label : `Select ${equipmentType}...`}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0">
+        <PopoverContent className="w-[250px] p-0">
           <Command>
             <CommandInput placeholder={`Search ${equipmentType}(s)...`} />
             <CommandList className="max-h-[200px]">
