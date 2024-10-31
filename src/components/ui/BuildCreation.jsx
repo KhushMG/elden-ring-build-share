@@ -6,9 +6,12 @@ import { SingleSelectCombobox } from "@/components/ui/single-select_combobox";
 import { TagsCombobox } from "./TagsCombobox";
 import { useState } from "react";
 
-import { useUser } from "@clerk/nextjs";
+import { useUser, useAuth } from "@clerk/nextjs";
 
 import { BuildDialog } from './BuildDialog';
+import { supabase } from '@/lib/supabase';
+import { Button } from './button';
+
 
 export default function BuildCreation({ weapons, helmets, chests, gauntlets, legs, talismans, greatRunes}) {
 
@@ -24,8 +27,44 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
   
 
   const { user, isLoaded } = useUser();
+  const { getToken } = useAuth();
   if (isLoaded && !user) {
     redirect("/sign-in");
+  }
+
+  const createBuild = async () => { 
+    const token = await getToken({ template: "supabase" });
+    try {
+      const build = {
+      clerk_user_id: user.id,
+      build_name: buildName || "New build",
+      stats: "No stats selected",
+      weapons: selectedWeapons || "No weapons were selected",
+      armor: { 
+        helmet: selectedHelmet,
+        chest: selectedChest,
+        gauntlets: selectedGauntlets,
+        legs: selectedLegs,
+        buffs: "",
+        created_at: Date.now(),
+        tags: selectedTags
+      }
+    };
+    supabase.auth.setSession({access_token})
+    const { data, error } = await supabase.from("builds").insert(build);
+    
+    if (error) { 
+      console.error("error inserting build ", error.message)
+    } else { 
+      console.log("Build Created ", data)
+    }
+    } catch (error) {
+       console.error(
+         "Error with Clerk auth or Supabase insert:",
+         error.message
+       );
+    }
+    
   }
 
   const [selectedTags, setSelectedTags] = useState([]);
@@ -102,8 +141,10 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
   return (
     <div className="container mx-auto p-4">
       <div className="flex space-x-4 mb-4">
-        <h1 className="text-2xl font-bold">{buildName ? `${buildName}` : "Build Name"}</h1>
-        <BuildDialog onBuildNameChange={handleBuildNameChange}/>
+        <h1 className="text-2xl font-bold">
+          {buildName ? `${buildName}` : "Build Name"}
+        </h1>
+        <BuildDialog onBuildNameChange={handleBuildNameChange} />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -212,6 +253,15 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
             </div>
           </CardContent>
         </Card>
+      </div>
+      <div className="flex justify-center sm:justify-end mt-4">
+        <Button
+          variant="outline"
+          className="border-gray-300 border-2 hover:bg-black hover:text-white transition ease-in-out duration-200"
+          onClick={createBuild}
+        >
+          Create Build
+        </Button>
       </div>
     </div>
   );

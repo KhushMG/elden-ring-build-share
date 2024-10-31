@@ -48,7 +48,7 @@ export function Combobox({ onWeaponsChange, equipmentType, weapons }) {
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-[300px] justify-between "
+            className="w-[225px] justify-between "
           >
             {selectedWeapons.length > 0
               ? `${selectedWeapons.length} + ${equipmentType}(s) selected`
