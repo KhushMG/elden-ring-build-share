@@ -24,6 +24,9 @@ export function Combobox({ onWeaponsChange, equipmentType, weapons }) {
   const [open, setOpen] = React.useState(false);
   const [selectedWeapons, setSelectedWeapons] = React.useState([]);
 
+
+  const availableWeapons = weapons.filter((tag) => !selectedWeapons.includes(tag));
+
   const toggleWeapon = (weapon) => {
     setSelectedWeapons((prev) => {
       const newSelectedWeapons = prev.includes(weapon)
@@ -45,7 +48,7 @@ export function Combobox({ onWeaponsChange, equipmentType, weapons }) {
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-[300px] justify-between "
+            className="w-[400px] justify-between "
           >
             {selectedWeapons.length > 0
               ? `${selectedWeapons.length} weapon(s) selected`
@@ -59,25 +62,24 @@ export function Combobox({ onWeaponsChange, equipmentType, weapons }) {
             <CommandList className="max-h-[200px]">
               <CommandEmpty>No weapons found.</CommandEmpty>
               <CommandGroup>
-                {weapons.map((weapon) => (
-                  <div key={weapon} className=""> 
+                {availableWeapons.map((weapon) => (
+                  <div key={weapon} className="">
                     <CommandItem
-                    key={weapon}
-                    onSelect={() => toggleWeapon(weapon)}
-                  >
-                    <Check
-                      className={cn(
-                        "ml-auto h-4 w-4",
-                        selectedWeapons.includes(weapon)
-                          ? "opacity-100"
-                          : "opacity-0"
-                      )}
-                      color="green"
-                    />
-                    {weapon.toUpperCase()}
-                  </CommandItem>
+                      key={weapon}
+                      onSelect={() => toggleWeapon(weapon)}
+                    >
+                      <Check
+                        className={cn(
+                          "ml-auto h-4 w-4",
+                          selectedWeapons.includes(weapon)
+                            ? "opacity-100"
+                            : "opacity-0"
+                        )}
+                        color="green"
+                      />
+                      {weapon.toUpperCase()}
+                    </CommandItem>
                   </div>
-                  
                 ))}
               </CommandGroup>
             </CommandList>
@@ -87,7 +89,9 @@ export function Combobox({ onWeaponsChange, equipmentType, weapons }) {
 
       {selectedWeapons.length > 0 && (
         <div className="mt-4">
-          <h3 className="text-lg font-semibold mb-2 text-green-700">Selected Weapons:</h3>
+          <h3 className="text-lg font-semibold mb-2 text-green-700">
+            Selected Weapons:
+          </h3>
           <ul className="space-y-2">
             {selectedWeapons.map((weapon) => (
               <li

@@ -19,14 +19,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const allWeapons = [
-  "Greatspear",
-  "Death Knight Axe",
-  "Claymore",
-  "Longsword",
-  "Dagger",
-];
-
 const allTags = [
   "Strength",
   "Dexterity",
