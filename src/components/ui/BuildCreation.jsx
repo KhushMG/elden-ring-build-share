@@ -8,6 +8,9 @@ import { useState } from "react";
 
 import { useUser } from "@clerk/nextjs";
 
+import { Button } from "@/components/ui/button";
+import { BuildDialog } from './BuildDialog';
+
 export default function BuildCreation({ weapons, helmets, chests, gauntlets, legs, talismans, greatRunes}) {
 
   // supabase query returns array of objects with "name" field
@@ -34,6 +37,7 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
   const [selectedChest, setSelectedChest] = useState("");
   const [selectedGauntlets, setSelectedGauntlets] = useState("");
   const [selectedLegs, setSelectedLegs] = useState("");
+  const [buildName, setBuildName] = useState("")
 
   const handleTagsChange = (tags) => {
     setSelectedTags(tags);
@@ -90,14 +94,15 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
     selectedLegs,
   ]);
 
-
-
-
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Build Name</h1>
+      <div className="flex space-x-4 mb-[0.5rem]">
+        <h1 className="text-2xl font-bold">Build Name</h1>
+        <BuildDialog />
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
+        <Card className="border-gray-400">
           <CardHeader>
             <CardTitle>Select Build Tags</CardTitle>
           </CardHeader>
@@ -107,7 +112,7 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
             </div>
           </CardContent>
         </Card>
-        <Card className="">
+        <Card className="border-gray-400">
           <CardHeader>
             <CardTitle>Select Talismans</CardTitle>
           </CardHeader>
@@ -121,7 +126,7 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="border-gray-400">
           <CardHeader>
             <CardTitle>Select Great Rune</CardTitle>
           </CardHeader>
@@ -133,12 +138,12 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
             />
           </CardContent>
         </Card>
-        <Card>
+        <Card className="border-gray-400">
           <CardHeader>
             <CardTitle>Select Weapons</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="bg-gray-100 h-48 rounded-md overflow-y-auto">
+            <div className="bg-gray-100 h-48 rounded-md overflow-y-auto overflow-x-hidden">
               <Combobox
                 onWeaponsChange={handleWeaponsChange}
                 weapons={weapons}
@@ -148,15 +153,15 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
           </CardContent>
         </Card>
 
-        <Card className="sm:min-w-[78.4vw]">
+        <Card className="sm:min-w-[78.4vw] border-gray-400 sm:pb-[3rem] gap-x-[1rem] ">
           <CardHeader>
             <CardTitle>Select Armor</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 sm:grid-cols-4 gap-x-[2rem]">
+            <div className="grid grid-cols-1 sm:grid-cols-4">
               <div>
-                <h3 className="font-semibold mb-1">Select helmet</h3>
-                <div className="bg-gray-100 h-24 rounded-md">
+                <h3 className="font-semibold mb-1 text-xl">Select helmet</h3>
+                <div className="bg-gray-100 sm:h-48 rounded-md overflow-y-auto ">
                   <SingleSelectCombobox
                     onSelectionChange={handleHelmetChange}
                     equipmentType={"Helmet"}
@@ -165,8 +170,10 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
                 </div>
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Select chestpiece</h3>
-                <div className="bg-gray-100 h-24 rounded-md">
+                <h3 className="font-semibold mb-1 text-xl">
+                  Select chestpiece
+                </h3>
+                <div className="bg-gray-100 sm:h-48 rounded-md overflow-y-auto">
                   <SingleSelectCombobox
                     onSelectionChange={handleChestChange}
                     equipmentType={"Chest Armor"}
@@ -175,8 +182,8 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
                 </div>
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Select gauntlets</h3>
-                <div className="bg-gray-100 h-24 rounded-md">
+                <h3 className="font-semibold mb-1 text-xl">Select gauntlets</h3>
+                <div className="bg-gray-100 sm:h-48 rounded-md overflow-y-auto">
                   <SingleSelectCombobox
                     equipmentType={"Gauntlets"}
                     equipment={gauntlets}
@@ -185,8 +192,8 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
                 </div>
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Select leg armor</h3>
-                <div className="bg-gray-100 h-24 rounded-md">
+                <h3 className="font-semibold mb-1 text-xl">Select leg armor</h3>
+                <div className="bg-gray-100 sm:h-48 rounded-md overflow-y-auto">
                   <SingleSelectCombobox
                     equipment={legs}
                     onSelectionChange={handleLegsChange}

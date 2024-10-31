@@ -38,14 +38,14 @@ export function Combobox({ onWeaponsChange, equipmentType, weapons }) {
   };
 
   return (
-    <div className="min-h-[5rem] max-h-[5rem] over-y-auto">
+    <div className="min-h-[5rem] max-h-[5rem] ">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-[200px] justify-between"
+            className="w-[300px] justify-between "
           >
             {selectedWeapons.length > 0
               ? `${selectedWeapons.length} weapon(s) selected`

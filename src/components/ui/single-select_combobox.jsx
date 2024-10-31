@@ -41,14 +41,14 @@ export function SingleSelectCombobox( { onSelectionChange, equipmentType, equipm
   }, [value, onSelectionChange]);
 
   return (
-    <div className="min-h-[5rem] max-h-[5rem] over-y-auto">
+    <div className="sm:min-h-[5rem] sm:max-h-[5rem]">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-[200px] justify-between"
+            className="w-[300px] justify-between"
           >
             {selectedItem ? selectedItem.label : `Select ${equipmentType}...`}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -86,7 +86,7 @@ export function SingleSelectCombobox( { onSelectionChange, equipmentType, equipm
 
       {value && (
         <div className="mt-4">
-          <h3 className="text-lg font-semibold mb-2">{`Selected ${equipmentType}:`}</h3>
+          <h3 className="text-lg font-semibold mb-2 text-green-700">{`Selected ${equipmentType}:`}</h3>
           <ul className="space-y-2">
             <li
               key={value}
