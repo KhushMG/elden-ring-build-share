@@ -86,16 +86,11 @@ export function TagsCombobox({ onTagsChange }) {
               <CommandEmpty>No tags found.</CommandEmpty>
               <CommandGroup>
                 {availableTags.map((tag) => (
-                  <CommandItem
-                    key={tag}
-                    onSelect={() => toggleTags(tag)}
-                  >
+                  <CommandItem key={tag} onSelect={() => toggleTags(tag)}>
                     <Check
                       className={cn(
                         "ml-auto h-4 w-4",
-                        selectedTags.includes(tag)
-                          ? "opacity-100"
-                          : "opacity-0"
+                        selectedTags.includes(tag) ? "opacity-100" : "opacity-0"
                       )}
                     />
                     {tag}
@@ -109,7 +104,9 @@ export function TagsCombobox({ onTagsChange }) {
 
       {selectedTags.length > 0 && (
         <div className="mt-4">
-          <h3 className="text-lg font-semibold mb-2">Selected Tags:</h3>
+          <h3 className="text-lg font-semibold mb-2 text-green-700">
+            Selected Tags:
+          </h3>
           <ul className="space-y-2">
             {selectedTags.map((tag) => (
               <li

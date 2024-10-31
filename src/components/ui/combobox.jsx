@@ -87,7 +87,7 @@ export function Combobox({ onWeaponsChange, equipmentType, weapons }) {
 
       {selectedWeapons.length > 0 && (
         <div className="mt-4">
-          <h3 className="text-lg font-semibold mb-2">Selected Weapons:</h3>
+          <h3 className="text-lg font-semibold mb-2 text-green-700">Selected Weapons:</h3>
           <ul className="space-y-2">
             {selectedWeapons.map((weapon) => (
               <li

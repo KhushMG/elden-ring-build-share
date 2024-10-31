@@ -48,7 +48,7 @@ export function SingleSelectCombobox( { onSelectionChange, equipmentType, equipm
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-[300px] justify-between"
+            className="sm:w-[300px] gap-x-4"
           >
             {selectedItem ? selectedItem.label : `Select ${equipmentType}...`}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

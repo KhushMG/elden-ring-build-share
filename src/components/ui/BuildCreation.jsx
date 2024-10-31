@@ -96,28 +96,29 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
 
   return (
     <div className="container mx-auto p-4">
-      <div className="flex space-x-4 mb-[0.5rem]">
+      <div className="flex space-x-4 mb-4">
         <h1 className="text-2xl font-bold">Build Name</h1>
         <BuildDialog />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="border-gray-400">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="border-gray-400 h-[300px] flex flex-col">
           <CardHeader>
             <CardTitle>Select Build Tags</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="bg-gray-100 h-48 rounded-md overflow-y-auto">
+          <CardContent className="flex-grow overflow-hidden">
+            <div className="bg-gray-100 h-full rounded-md overflow-y-auto">
               <TagsCombobox onTagsChange={handleTagsChange} />
             </div>
           </CardContent>
         </Card>
-        <Card className="border-gray-400">
+
+        <Card className="border-gray-400 h-[300px] flex flex-col">
           <CardHeader>
             <CardTitle>Select Talismans</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="bg-gray-100 h-48 rounded-md overflow-y-auto">
+          <CardContent className="flex-grow overflow-hidden">
+            <div className="bg-gray-100 h-full rounded-md overflow-y-auto overflow-x-hidden">
               <Combobox
                 onWeaponsChange={handleTalismanChange}
                 equipmentType={"Talismans"}
@@ -126,11 +127,12 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
             </div>
           </CardContent>
         </Card>
-        <Card className="border-gray-400">
+
+        <Card className="border-gray-400 h-[300px] flex flex-col">
           <CardHeader>
             <CardTitle>Select Great Rune</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="flex-grow overflow-hidden">
             <SingleSelectCombobox
               onSelectionChange={handleGreatRuneChange}
               equipmentType={"Great Rune"}
@@ -138,12 +140,13 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
             />
           </CardContent>
         </Card>
-        <Card className="border-gray-400">
+
+        <Card className="border-gray-400 h-[300px] flex flex-col">
           <CardHeader>
             <CardTitle>Select Weapons</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="bg-gray-100 h-48 rounded-md overflow-y-auto overflow-x-hidden">
+          <CardContent className="flex-grow overflow-hidden">
+            <div className="bg-gray-100 h-full rounded-md overflow-y-auto overflow-x-hidden">
               <Combobox
                 onWeaponsChange={handleWeaponsChange}
                 weapons={weapons}
@@ -153,15 +156,15 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
           </CardContent>
         </Card>
 
-        <Card className="sm:min-w-[78.4vw] border-gray-400 sm:pb-[3rem] gap-x-[1rem] ">
+        <Card className="border-gray-400 h-[300px] flex flex-col col-span-full ">
           <CardHeader>
             <CardTitle>Select Armor</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 sm:grid-cols-4">
-              <div>
+          <CardContent className="flex-grow overflow-y-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 h-full">
+              <div className="flex flex-col">
                 <h3 className="font-semibold mb-1 text-xl">Select helmet</h3>
-                <div className="bg-gray-100 sm:h-48 rounded-md overflow-y-auto ">
+                <div className="bg-gray-100 flex-grow rounded-md overflow-y-auto">
                   <SingleSelectCombobox
                     onSelectionChange={handleHelmetChange}
                     equipmentType={"Helmet"}
@@ -169,11 +172,11 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
                   />
                 </div>
               </div>
-              <div>
+              <div className="flex flex-col">
                 <h3 className="font-semibold mb-1 text-xl">
                   Select chestpiece
                 </h3>
-                <div className="bg-gray-100 sm:h-48 rounded-md overflow-y-auto">
+                <div className="bg-gray-100 flex-grow rounded-md overflow-y-auto">
                   <SingleSelectCombobox
                     onSelectionChange={handleChestChange}
                     equipmentType={"Chest Armor"}
@@ -181,9 +184,9 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
                   />
                 </div>
               </div>
-              <div>
+              <div className="flex flex-col">
                 <h3 className="font-semibold mb-1 text-xl">Select gauntlets</h3>
-                <div className="bg-gray-100 sm:h-48 rounded-md overflow-y-auto">
+                <div className="bg-gray-100 flex-grow rounded-md overflow-y-auto">
                   <SingleSelectCombobox
                     equipmentType={"Gauntlets"}
                     equipment={gauntlets}
@@ -191,9 +194,9 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
                   />
                 </div>
               </div>
-              <div>
+              <div className="flex flex-col">
                 <h3 className="font-semibold mb-1 text-xl">Select leg armor</h3>
-                <div className="bg-gray-100 sm:h-48 rounded-md overflow-y-auto">
+                <div className="bg-gray-100 flex-grow rounded-md overflow-y-auto">
                   <SingleSelectCombobox
                     equipment={legs}
                     onSelectionChange={handleLegsChange}
