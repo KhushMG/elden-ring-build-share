@@ -6,8 +6,6 @@ import { SingleSelectCombobox } from "@/components/ui/single-select_combobox";
 import { TagsCombobox } from "./TagsCombobox";
 import { useState } from "react";
 
-import { useUser, useAuth } from "@clerk/nextjs";
-
 import { BuildDialog } from './BuildDialog';
 import { supabase } from '@/lib/supabase';
 import { Button } from './button';
@@ -24,48 +22,7 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
   gauntlets = gauntlets.map((gauntlet) => gauntlet.name);
   legs = legs.map((leg) => leg.name);
   greatRunes = greatRunes.map((greatRune) => greatRune.name);
-  
 
-  const { user, isLoaded } = useUser();
-  const { getToken } = useAuth();
-  if (isLoaded && !user) {
-    redirect("/sign-in");
-  }
-
-  const createBuild = async () => { 
-    const token = await getToken({ template: "supabase" });
-    try {
-      const build = {
-      clerk_user_id: user.id,
-      build_name: buildName || "New build",
-      stats: "No stats selected",
-      weapons: selectedWeapons || "No weapons were selected",
-      armor: { 
-        helmet: selectedHelmet,
-        chest: selectedChest,
-        gauntlets: selectedGauntlets,
-        legs: selectedLegs,
-        buffs: "",
-        created_at: Date.now(),
-        tags: selectedTags
-      }
-    };
-    supabase.auth.setSession({access_token})
-    const { data, error } = await supabase.from("builds").insert(build);
-    
-    if (error) { 
-      console.error("error inserting build ", error.message)
-    } else { 
-      console.log("Build Created ", data)
-    }
-    } catch (error) {
-       console.error(
-         "Error with Clerk auth or Supabase insert:",
-         error.message
-       );
-    }
-    
-  }
 
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedWeapons, setSelectedWeapons] = useState([]);
