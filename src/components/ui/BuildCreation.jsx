@@ -9,6 +9,7 @@ import { useState } from "react";
 import { BuildDialog } from './BuildDialog';
 import { supabase } from '@/lib/supabase';
 import { Button } from './button';
+import { redirect } from 'next/navigation';
 
 
 export default function BuildCreation({ weapons, helmets, chests, gauntlets, legs, talismans, greatRunes}) {
@@ -98,6 +99,11 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
   return (
     <div className="container mx-auto p-4">
       <div className="flex space-x-4 mb-4">
+        <Button>
+          <a href='/'> 
+            Go to home
+          </a>
+        </Button>
         <h1 className="text-2xl font-bold">
           {buildName ? `${buildName}` : "Build Name"}
         </h1>
@@ -215,7 +221,6 @@ export default function BuildCreation({ weapons, helmets, chests, gauntlets, leg
         <Button
           variant="outline"
           className="border-gray-300 border-2 hover:bg-black hover:text-white transition ease-in-out duration-200"
-          onClick={createBuild}
         >
           Create Build
         </Button>

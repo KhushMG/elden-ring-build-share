@@ -56,5 +56,6 @@ export function BuildDialog({ onBuildNameChange} ) {
         </DialogFooter>
       </DialogContent>
     </Dialog>
+    
   );
 }

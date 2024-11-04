@@ -6,6 +6,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { supabase } from '@/lib/supabase';
 
 const CreateBuildPage = async () => {
+ const { session } = supabase.auth.getSession(); 
 
  const [
    { data: weapons, error: weaponsError },

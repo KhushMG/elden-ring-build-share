@@ -26,7 +26,7 @@ const SignInComponent = () => {
       if (session) {
         // Construct the redirect URL using the user ID
         const userId = session.user.id;
-        const redirectTo = searchParams.get("redirect") || `/profile/${userId}`;
+        const redirectTo = searchParams.get("redirect") || `/profile`;
 
         router.push(redirectTo); 
       }
