@@ -1,4 +1,4 @@
-// app/profile/page.js
+// app/profile/page.js hee
 "use client";
 import { useEffect, useState } from "react";
 import { redirect, useRouter } from "next/navigation";
